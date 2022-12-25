@@ -25,6 +25,6 @@
         "webpack-dev-server": "^3.11.1"
     },
     "dependencies": {
-        "mupen64plus-web": "../fresh-mupen64plus-web-netplay/mupen64plus-web"
+        "mupen64plus-web": "../"
     }
 }
