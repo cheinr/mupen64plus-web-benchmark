@@ -1,0 +1,30 @@
+{
+    "name": "mupen64plus-web-benchmark",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run mkdirs && npm run copy-html && npm run copy-dependencies && npm run copy-dependencies && webpack serve",
+        "benchmark": "concurrently \"npm run start\" \"wait-on http://localhost:1337 && node run-benchmark.js\" --success first --kill-others",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "mkdirs": "mkdir -p dist",
+        "copy-dependencies": "cp -r ./node_modules/mupen64plus-web/bin/web/index* ./node_modules/mupen64plus-web/bin/web/mupen64plus.json ./dist",
+        "clean": "rm -r dist",
+        "copy-html": "cp index.html ./dist",
+        "build": "npm run mkdirs && npx webpack --config ./webpack.config.js && npm run copy-html && npm run copy-dependencies",
+        "clean-build": "npm run clean && npm run build"
+    },
+    "author": "Colin Heinrichs",
+    "license": "GPL-2.0",
+    "devDependencies": {
+        "concurrently": "^7.6.0",
+        "puppeteer": "^19.4.1",
+        "wait-on": "^7.0.1",
+        "webpack": "^5.11.1",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^3.11.1"
+    },
+    "dependencies": {
+        "mupen64plus-web": "../fresh-mupen64plus-web-netplay/mupen64plus-web"
+    }
+}

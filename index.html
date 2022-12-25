@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <input type="file" id="file-selector"></input>
+    
+    <canvas
+      className="emscripten"
+      id="canvas"
+      onContextMenu="function(event) { event.preventDefault() }"
+      width="640px" height="480px" style="width:640px; height:480px"></canvas>
+
+    <div id="stats-info"></div>
+    
+    <div id="done-info"></div>
+    
+    <script src="main.js"></script>
+  </body>
+</html>
