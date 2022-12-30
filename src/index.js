@@ -37,7 +37,7 @@ setInterval(function() {
         <tr>
           <td>${stats.viCount}</td>
           <td>${(stats.viCount / (stats.totalRunTime / 1000)).toFixed(3)}</td>
-          <td>${((stats.totalRunTime) / stats.viCount).toFixed(3)}</td>
+          <td>${((stats.totalViRunTime) / stats.viCount).toFixed(3)}</td>
           <td>${(stats.totalRunTime / 1000).toFixed(3)}</td>
           <tr>
       </tbody>
@@ -59,9 +59,9 @@ function handleFiles() {
           ScreenUpdateSetting: 1
         }
       },
-      mainLoopTimingMode: 1, // 0 = requestAnimationFrame, 1 = setTimeout(0)
       coreConfig: {
-        emuMode: 1
+        emuMode: 1,
+        mainLoopTimingMode: 1, // 0 = requestAnimationFrame, 1 = setTimeout(0)
       },
       
       beginStats: stats.beginStats,
