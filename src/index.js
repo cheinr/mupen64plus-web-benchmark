@@ -8,6 +8,7 @@ inputElement.addEventListener("change", handleFiles, false);
 let emuControls;
 
 function onComplete() {
+  console.log('onComplete');
   const statsInfoEl = document.getElementById('done-info');
   statsInfoEl.innerHTML = 'DONE!';
 
@@ -16,7 +17,7 @@ function onComplete() {
   statsInfoEl.appendChild(doneDiv);
 
   if (emuControls) {
-    emuControls.stop();
+    //emuControls.stop();
   }
 }
 
@@ -60,7 +61,7 @@ function handleFiles() {
         }
       },
       coreConfig: {
-        emuMode: 1,
+        emuMode: 2,
         mainLoopTimingMode: 1, // 0 = requestAnimationFrame, 1 = setTimeout(0)
       },
       
