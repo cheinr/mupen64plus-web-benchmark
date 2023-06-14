@@ -10,6 +10,7 @@ const getStats = function({ maxVIs, onComplete }) {
     lastViEndTime: 0,
     totalRunTime: 0,
     totalViRunTime: 0,
+    viStats: [],
     beginStats: function() {
 
       const now = performance.now();
@@ -19,12 +20,18 @@ const getStats = function({ maxVIs, onComplete }) {
 
       stats.currentViStartTime = now;
     },
-    endStats: function() {
+    endStats: function(numberOfRecompiles) {
 
-      stats.viCount++;
-      stats.lastViEndTime = performance.now();
+      const currentTime = performance.now();
+
+      stats.viStats[stats.viCount++] = {
+        time: currentTime - stats.currentViStartTime,
+        numberOfRecompiles
+      };
+      stats.lastViEndTime = currentTime;
       stats.totalRunTime = stats.lastViEndTime - stats.firstViStartTime;
       stats.totalViRunTime += stats.lastViEndTime - stats.currentViStartTime;
+
       
       if (maxVIs && stats.viCount >= maxVIs && !done) {
 

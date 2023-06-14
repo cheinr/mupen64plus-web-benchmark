@@ -53,6 +53,15 @@ const runBenchmark = async (romPath) => {
 
   console.log("| ROM Name | VI Count | VIs / sec. | Average VI Time Millis | Total Time |");
   benchmarks.forEach((stats) => {
+
+    let csv = "vi#,time,numberOfRecompiles\n";
+
+    stats.viStats.forEach((viStat, index) => {
+      csv += `${index},${viStat.time},${viStat.numberOfRecompiles}\n`;
+    });
+
+    fs.writeFileSync(`./${stats.rom}-vi-stats.csv`, csv);
+
     console.log(`| ${stats.rom} | ${stats.viCount} | ${(stats.viCount / (stats.totalRunTime / 1000)).toFixed(3)} | ${(stats.totalViRunTime / stats.viCount).toFixed(3)} | ${(stats.totalRunTime / 1000).toFixed(3)} |`);
   });
 
