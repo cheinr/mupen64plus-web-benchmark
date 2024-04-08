@@ -2,8 +2,11 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
+  mode: 'development',
   devServer: {
-    contentBase: './dist',
+    static: {
+      directory: path.join(__dirname, 'dist')
+    },
     port: 1337,
     open: false
   },

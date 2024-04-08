@@ -17,12 +17,12 @@
     "author": "Colin Heinrichs",
     "license": "GPL-2.0",
     "devDependencies": {
-        "concurrently": "^7.6.0",
+        "concurrently": "^8.2.2",
         "puppeteer": "^19.4.1",
         "wait-on": "^7.0.1",
-        "webpack": "^5.11.1",
-        "webpack-cli": "^4.10.0",
-        "webpack-dev-server": "^3.11.1",
+        "webpack": "^5.91.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.4",
         "yargs": "^17.6.2"
     },
     "dependencies": {
