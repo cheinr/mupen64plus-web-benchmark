@@ -1,4 +1,4 @@
-import createMupen64PlusWeb from 'mupen64plus-web';
+import createMupen64PlusWeb, { mainMupen64PlusWebJsFileName } from 'mupen64plus-web';
 import getStats from './stats';
 
 const inputElement = document.getElementById("file-selector");
@@ -60,11 +60,11 @@ function handleFiles() {
           ScreenUpdateSetting: 1
         }
       },
+      mainScriptUrlOrBlob: `/${mainMupen64PlusWebJsFileName}`,
       coreConfig: {
-        emuMode: 2,
+        emuMode: 1,
         mainLoopTimingMode: 1, // 0 = requestAnimationFrame, 1 = setTimeout(0)
       },
-      
       beginStats: stats.beginStats,
       endStats: stats.endStats,
       netplayConfig: {

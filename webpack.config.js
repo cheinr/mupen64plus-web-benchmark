@@ -8,7 +8,17 @@ module.exports = {
       directory: path.join(__dirname, 'dist')
     },
     port: 1337,
-    open: false
+    open: false,
+    headers: [
+      {
+        key: 'Cross-Origin-Embedder-Policy',
+        value: 'require-corp'
+      },
+      {
+        key: 'Cross-Origin-Opener-Policy',
+        value: 'same-origin'
+      }
+    ]
   },
   output: {
     filename: 'main.js',
