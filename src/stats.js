@@ -36,12 +36,16 @@ const getStats = function({ maxVIs, onComplete }) {
       if (maxVIs && stats.viCount >= maxVIs && !done) {
 
         done = true;
-        
-        setTimeout(() => {
-          if (onComplete) {
-            onComplete();
-          }
-        }, 0);
+
+        if (onComplete) {
+          onComplete();
+        }
+
+//        setTimeout(() => {
+//          if (onComplete) {
+//            onComplete();
+//          }
+//        }, 0);
       }
     }
   }

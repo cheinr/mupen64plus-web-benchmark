@@ -21,7 +21,12 @@ function onComplete() {
   }
 }
 
-window.stats = getStats({ maxVIs: 1000, onComplete });
+const queryParams = new URLSearchParams(window.location.search);
+
+const maxVIs = queryParams.get('maxVIs')
+             ? parseInt(queryParams.get('maxVIs'))
+             : 1000;
+window.stats = getStats({ maxVIs, onComplete });
 
 setInterval(function() {
   const statsInfoEl = document.getElementById('stats-info');
