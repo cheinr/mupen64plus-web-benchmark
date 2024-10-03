@@ -52,6 +52,7 @@ const runBenchmark = async (romPath) => {
   }
 
   console.log("| ROM Name | VI Count | VIs / sec. | Average VI Time Millis | VI Time Millis Standard Deviation | Total Time |");
+
   benchmarks.forEach((stats) => {
 
     let csv = "vi#,time,numberOfRecompiles\n";
@@ -76,5 +77,28 @@ const runBenchmark = async (romPath) => {
     console.log(`| ${stats.rom} | ${stats.viCount} | ${(stats.viCount / (stats.totalRunTime / 1000)).toFixed(3)} | ${viTimeAverage.toFixed(3)} | ${viTimeStandardDeviation.toFixed(6)} | ${(stats.totalRunTime / 1000).toFixed(3)} |`);
   });
 
+
+  let totalViRunTimeForAllROMS = 0;
+  let totalNumberOfVisForAllROMS = 0;
+  benchmarks.forEach((stats) => {
+    totalViRunTimeForAllROMS += stats.totalViRunTime;
+    totalNumberOfVisForAllROMS += stats.viCount;
+  });
+  
+  const allROMSAverageViTimeMillis = totalViRunTimeForAllROMS / totalNumberOfVisForAllROMS;
+
+  let totalViSquaredTimeDifferencesSumForAllROMS = 0;
+  benchmarks.forEach((stats) => {
+    const difference = stats.viStats.forEach((viStat) => {
+      const difference = viStat.time - allROMSAverageViTimeMillis;
+      totalViSquaredTimeDifferencesSumForAllROMS = difference * difference;      
+    });
+  });
+
+  const totalViTimeVarianceForAllROMS = totalViSquaredTimeDifferencesSumForAllROMS / (totalNumberOfVisForAllROMS - 1);
+  const totalViTimeStandardDeviationForAllROMS = Math.sqrt(totalViTimeVarianceForAllROMS);
+
+  
+  console.log("Total Mean VI Time Millis: %d; σ=%d", allROMSAverageViTimeMillis.toFixed(6), totalViTimeStandardDeviationForAllROMS.toFixed(6));
 })();
 
