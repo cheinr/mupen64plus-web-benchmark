@@ -51,7 +51,7 @@ const runBenchmark = async (romPath) => {
     benchmarks.push(await runBenchmark('./m64p_test_rom.v64'));
   }
 
-  console.log("| ROM Name | VI Count | VIs / sec. | Average VI Time Millis | Total Time |");
+  console.log("| ROM Name | VI Count | VIs / sec. | Average VI Time Millis | VI Time Millis Standard Deviation | Total Time |");
   benchmarks.forEach((stats) => {
 
     let csv = "vi#,time,numberOfRecompiles\n";
@@ -60,9 +60,20 @@ const runBenchmark = async (romPath) => {
       csv += `${index},${viStat.time},${viStat.numberOfRecompiles}\n`;
     });
 
+    const viTimeAverage = stats.totalViRunTime / stats.viCount;
+
+    let viSquaredTimeDifferencesSum = 0;
+    stats.viStats.forEach((viStat) => {
+      const difference = viStat.time - viTimeAverage;
+      viSquaredTimeDifferencesSum = difference * difference;
+    });
+
+    const viTimeVariance = viSquaredTimeDifferencesSum / (stats.viCount - 1);
+    const viTimeStandardDeviation = Math.sqrt(viTimeVariance);
+
     fs.writeFileSync(`./${stats.rom}-vi-stats.csv`, csv);
 
-    console.log(`| ${stats.rom} | ${stats.viCount} | ${(stats.viCount / (stats.totalRunTime / 1000)).toFixed(3)} | ${(stats.totalViRunTime / stats.viCount).toFixed(3)} | ${(stats.totalRunTime / 1000).toFixed(3)} |`);
+    console.log(`| ${stats.rom} | ${stats.viCount} | ${(stats.viCount / (stats.totalRunTime / 1000)).toFixed(3)} | ${viTimeAverage.toFixed(3)} | ${viTimeStandardDeviation.toFixed(6)} | ${(stats.totalRunTime / 1000).toFixed(3)} |`);
   });
 
 })();
